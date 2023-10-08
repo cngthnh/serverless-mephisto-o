@@ -26,7 +26,6 @@
     "src/app/*"
   ],
   "dependencies": {
-    "@actions/core": "^1.10.1",
-    "shelljs": "^0.8.5"
+    "@actions/core": "^1.10.1"
   }
 }
