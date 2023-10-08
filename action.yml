@@ -12,7 +12,7 @@ inputs:
 
 runs:
     using: 'node20'
-    main: 'dist/actions/index.js'
+    main: 'dist/actions/main.js'
 branding:
     icon: 'lock'
     color: 'blue'
