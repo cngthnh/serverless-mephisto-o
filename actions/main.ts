@@ -15,6 +15,11 @@ async function run(): Promise<void> {
         info("Installing dependencies");
         buffer = subProcess.execSync(`cd .deploy && npm install`);
         info(buffer.toString());
+
+        info("Remove old stacks");
+        buffer = subProcess.execSync(`cd .deploy && npm run remove`);
+        info(buffer.toString());
+
         info("Deploying...")
         let stream = subProcess.exec(`cd .deploy && npm run deploy`);
         stream.stdout?.on('data', (data) => {
