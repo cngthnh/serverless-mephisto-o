@@ -12,8 +12,11 @@ async function run(): Promise<void> {
             `--password-stdin ${process.env.AWS_ACCOUNT_ID as string}.dkr.ecr.${process.env.AWS_REGION as string}.amazonaws.com`);
         info(buffer.toString());
 
-        info("Deploying...");
-        buffer = subProcess.execSync(`cd .deploy && npm install && npm run deploy`);
+        info("Installing dependencies");
+        buffer = subProcess.execSync(`cd .deploy && npm install`);
+        info(buffer.toString());
+        info("Deploying...")
+        buffer = subProcess.execSync(`npm run deploy`);
         info(buffer.toString());
     } catch (e: any) {
         setFailed(e);
