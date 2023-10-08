@@ -13,7 +13,7 @@
     "build-ts": "tsc --outDir dist"
   },
   "devDependencies": {
-    "@tsconfig/node18": "^18.2.2",
+    "@tsconfig/node20": "^20.1.2",
     "@types/shelljs": "^0.8.13",
     "aws-cdk-lib": "2.95.1",
     "constructs": "10.2.69",
