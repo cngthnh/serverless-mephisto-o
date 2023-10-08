@@ -2,6 +2,7 @@
   "name": "serverless-mephisto",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "sst dev",
     "build": "sst build",
@@ -10,7 +11,7 @@
     "console": "sst console",
     "typecheck": "tsc --noEmit",
     "build-action": "tsc --outDir dist",
-    "package": "ncc build actions/main.ts -o dist"
+    "package": "ncc build actions/main.ts -o dist -m --target es2020 -e '@actions/core' -e shelljs"
   },
   "devDependencies": {
     "@tsconfig/node20": "^20.1.2",
