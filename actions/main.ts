@@ -16,7 +16,7 @@ async function run(): Promise<void> {
         buffer = subProcess.execSync(`cd .deploy && npm install`);
         info(buffer.toString());
         info("Deploying...")
-        buffer = subProcess.execSync(`npm run deploy`);
+        buffer = subProcess.execSync(`cd .deploy && npm run deploy`);
         info(buffer.toString());
     } catch (e: any) {
         setFailed(e);
