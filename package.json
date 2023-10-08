@@ -10,7 +10,7 @@
     "remove": "sst remove",
     "console": "sst console",
     "typecheck": "tsc --noEmit",
-    "build-ts": "tsc --outDir dist"
+    "build-action": "tsc --outDir dist"
   },
   "devDependencies": {
     "@tsconfig/node20": "^20.1.2",
