@@ -16,8 +16,13 @@ async function run(): Promise<void> {
         buffer = subProcess.execSync(`cd .deploy && npm install`);
         info(buffer.toString());
         info("Deploying...")
-        buffer = subProcess.execSync(`cd .deploy && npm run deploy`);
-        info(buffer.toString());
+        let stream = subProcess.exec(`cd .deploy && npm run deploy`);
+        stream.stdout?.on('data', (data) => {
+            info(data);
+        });
+        stream.stderr?.on('data', (data) => {
+            info("stderr: " + data);
+        });
     } catch (e: any) {
         setFailed(e);
     }
