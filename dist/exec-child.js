@@ -1,3 +1,9 @@
+/******/ /* webpack/runtime/compat */
+/******/ 
+/******/ if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = new URL('.', import.meta.url).pathname.slice(import.meta.url.match(/^file:\/\/\/\w:/) ? 1 : 0, -1) + "/";
+/******/ 
+/************************************************************************/
+var __webpack_exports__ = {};
 if (require.main !== module) {
   throw new Error('This file should not be required');
 }
@@ -37,3 +43,4 @@ c.stderr.pipe(process.stderr);
 if (pipe) {
   c.stdin.end(pipe);
 }
+
