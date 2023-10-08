@@ -2,8 +2,8 @@ import { StackContext } from "sst/constructs/FunctionalStack";
 import { Service } from "sst/constructs";
 
 export function DefaultStack({ stack }: StackContext) {
-    new Service(stack, "MephistoService", {
-        path: "./src/app",
+    new Service(stack, `${process.env.APP_NAME}-${process.env.APP_ENV}-service`, {
+        path: "./app_src/app",
         build: {
             buildArgs: {
                 GIT_USER_EMAIL: process.env.GIT_USER_EMAIL as string,
