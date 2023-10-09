@@ -16,12 +16,12 @@ async function run(): Promise<void> {
         buffer = subProcess.execSync(`cd .deploy && npm install`);
         info(buffer.toString());
 
-        info("Remove old stacks");
-        buffer = subProcess.execSync(`cd .deploy && npm run remove`);
-        info(buffer.toString());
+        // info("Removing old stacks");
+        // buffer = subProcess.execSync(`cd .deploy && npm run remove`);
+        // info(buffer.toString());
 
         info("Deploying...")
-        let stream = subProcess.exec(`cd .deploy && npm run deploy`);
+        let stream = subProcess.exec(`cd .deploy && npm run deploy --stage ${process.env.APP_NAME}-${process.env.APP_ENV}`);
         stream.stdout?.on('data', (data) => {
             info(data);
         });
