@@ -21,7 +21,7 @@ async function run(): Promise<void> {
         // info(buffer.toString());
 
         info("Deploying...")
-        let stream = subProcess.exec(`cd .deploy && npm run deploy --stage ${process.env.APP_NAME}-${process.env.APP_ENV}`);
+        let stream = subProcess.exec(`cd .deploy && npm run deploy --stage=${process.env.APP_NAME}-${process.env.APP_ENV}`);
         stream.stdout?.on('data', (data) => {
             info(data);
         });
