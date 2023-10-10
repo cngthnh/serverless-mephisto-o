@@ -6,7 +6,10 @@ export default {
   config(_input) {
     return {
       name: `serverless-mephisto-${process.env.APP_NAME}-${process.env.APP_ENV}`,
-      region: process.env.AWS_REGION || "ap-southeast-2"
+      region: process.env.AWS_REGION || "ap-southeast-2",
+      bootstrap: {
+        tags: {"task-tag": `${process.env.APP_NAME}-${process.env.APP_ENV}`}
+      }
     };
   },
   stacks(app) {
