@@ -16,9 +16,9 @@ async function run(): Promise<void> {
         buffer = subProcess.execSync(`cd .deploy && npm install`);
         info(buffer.toString());
 
-        info("Removing old stacks");
-        buffer = subProcess.execSync(`cd .deploy && npm run remove`);
-        info(buffer.toString());
+        // info("Removing old stacks");
+        // buffer = subProcess.execSync(`cd .deploy && npm run remove`);
+        // info(buffer.toString());
 
         info("Deploying...")
         let stream = subProcess.exec(`cd .deploy && echo "${process.env.APP_ENV}" | npm run deploy`);

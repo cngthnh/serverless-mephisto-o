@@ -3,7 +3,7 @@ import { Service } from "sst/constructs";
 import DockerImageBuilder from "./DockerImageBuilder";
 import { ContainerImage } from "aws-cdk-lib/aws-ecs";
 
-export function DefaultStack({ stack }: StackContext) {
+export function DefaultServiceStack({ stack }: StackContext) {
     new Service(stack, `${process.env.APP_NAME}-${process.env.APP_ENV}-service`, {
         cdk: {
             container: {
