@@ -8,15 +8,15 @@ export default class DockerImageBuilder {
     private name: string;
     private path: string;
     private stack: Construct;
-    private image: string;
+    private image: DockerImageAsset;
     private buildArgs: {
         [key: string]: string;
     };
-    
+
     constructor() {
         this.name = 'unnamed';
         this.path = '';
-        this.image = '';
+        this.image = undefined as unknown as DockerImageAsset;
         this.buildArgs = {};
         this.stack = undefined as unknown as Construct;
     }
@@ -64,12 +64,13 @@ export default class DockerImageBuilder {
             dest: new ecrdeploy.DockerImageName(`${process.env.AWS_ACCOUNT_ID}.dkr.ecr.${process.env.AWS_REGION}.amazonaws.com/${targetImageWithTags}`),
         });
 
-        this.image = `${process.env.AWS_ACCOUNT_ID}.dkr.ecr.${process.env.AWS_REGION}.amazonaws.com/${targetImageWithTags}`;
+        // this.image = `${process.env.AWS_ACCOUNT_ID}.dkr.ecr.${process.env.AWS_REGION}.amazonaws.com/${targetImageWithTags}`;
+        this.image = image;
 
         return this;
     }
 
-    public getImage(): string {
+    public getImage(): DockerImageAsset {
         return this.image;
     }
 }

@@ -7,7 +7,7 @@ export function DefaultServiceStack({ stack }: StackContext) {
     new Service(stack, `${process.env.APP_NAME}-${process.env.APP_ENV}`, {
         cdk: {
             container: {
-                image: ContainerImage.fromRegistry(new DockerImageBuilder()
+                image: ContainerImage.fromDockerImageAsset(new DockerImageBuilder()
                         .withStack(stack)
                         .withName(`${process.env.APP_NAME}-${process.env.APP_ENV}`)
                         .withPath("./app_src/app")
