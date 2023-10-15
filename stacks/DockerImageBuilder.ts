@@ -52,6 +52,7 @@ export default class DockerImageBuilder {
         });
 
         const repo = new ecr.Repository(this.stack, this.name, {
+            repositoryName: this.name,
             lifecycleRules: [
                 {
                     rulePriority: 2,
