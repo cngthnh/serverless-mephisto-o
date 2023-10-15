@@ -9,7 +9,7 @@ export function DefaultStack({ stack }: StackContext) {
             container: {
                 image: ContainerImage.fromRegistry(new DockerImageBuilder()
                         .withStack(stack)
-                        .withTag(`${process.env.APP_NAME}-${process.env.APP_ENV}-service`)
+                        .withName(`${process.env.APP_NAME}-${process.env.APP_ENV}-service`)
                         .withPath("./app_src/app")
                         .withBuildArgs({
                             GIT_USER_EMAIL: process.env.GIT_USER_EMAIL as string,
