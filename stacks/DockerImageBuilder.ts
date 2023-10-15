@@ -51,19 +51,19 @@ export default class DockerImageBuilder {
             buildArgs: this.buildArgs,
         });
 
-        const repo = new ecr.Repository(this.stack, this.name, {
-            repositoryName: this.name,
-            lifecycleRules: [
-                {
-                    rulePriority: 2,
-                    description: "Remove old images of the same app",
-                    tagStatus: ecr.TagStatus.ANY,
-                    maxImageCount: 1
-                }
-            ],
-            removalPolicy: RemovalPolicy.DESTROY,
-            autoDeleteImages: true
-        });
+        // const repo = new ecr.Repository(this.stack, this.name, {
+        //     repositoryName: this.name,
+        //     lifecycleRules: [
+        //         {
+        //             rulePriority: 2,
+        //             description: "Remove old images of the same app",
+        //             tagStatus: ecr.TagStatus.ANY,
+        //             maxImageCount: 1
+        //         }
+        //     ],
+        //     removalPolicy: RemovalPolicy.DESTROY,
+        //     autoDeleteImages: true
+        // });
 
         const targetImageWithTags = `${this.name}:latest`
         console.log("IMAGE URI: " + image.imageUri);
