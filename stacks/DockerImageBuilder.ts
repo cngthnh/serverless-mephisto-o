@@ -57,7 +57,6 @@ export default class DockerImageBuilder {
                     rulePriority: 2,
                     description: "Remove old images of the same app",
                     tagStatus: ecr.TagStatus.ANY,
-                    tagPrefixList: [],
                     maxImageCount: 1
                 }
             ],
