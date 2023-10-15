@@ -12,6 +12,7 @@ export default class DockerImageBuilder {
     private buildArgs: {
         [key: string]: string;
     };
+    
     constructor() {
         this.name = 'unnamed';
         this.path = '';
@@ -19,22 +20,27 @@ export default class DockerImageBuilder {
         this.buildArgs = {};
         this.stack = undefined as unknown as Construct;
     }
+
     public withName(name: string): DockerImageBuilder {
         this.name = name;
         return this;
     }
+
     public withPath(path: string): DockerImageBuilder {
         this.path = path;
         return this;
     }
+
     public withStack(stack: Construct): DockerImageBuilder {
         this.stack = stack;
         return this;
     }
+
     public withBuildArgs(buildArgs: { [key: string]: string }): DockerImageBuilder {
         this.buildArgs = buildArgs;
         return this;
     }
+
     public build(): DockerImageBuilder {
         if (!this.path) {
             throw new Error("Missing path for building Docker image");
@@ -58,7 +64,7 @@ export default class DockerImageBuilder {
             dest: new ecrdeploy.DockerImageName(`${process.env.AWS_ACCOUNT_ID}.dkr.ecr.${process.env.AWS_REGION}.amazonaws.com/${targetImageWithTags}`),
         });
 
-        this.image = targetImageWithTags;
+        this.image = `${process.env.AWS_ACCOUNT_ID}.dkr.ecr.${process.env.AWS_REGION}.amazonaws.com/${targetImageWithTags}`;
 
         return this;
     }
