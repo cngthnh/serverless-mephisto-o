@@ -26,6 +26,7 @@
     "src/app/*"
   ],
   "dependencies": {
-    "@actions/core": "^1.10.1"
+    "@actions/core": "^1.10.1",
+    "cdk-ecr-deployment": "^2.5.30"
   }
 }
