@@ -2,6 +2,7 @@ import { StackContext } from "sst/constructs/FunctionalStack";
 import { Service } from "sst/constructs";
 import DockerImageBuilder from "./DockerImageBuilder";
 import { ContainerImage } from "aws-cdk-lib/aws-ecs";
+import { CustomDomainProps } from "sst/constructs/util/apiGatewayV2Domain";
 
 export function DefaultServiceStack({ stack }: StackContext) {
     new Service(stack, `${process.env.APP_NAME}-${process.env.APP_ENV}`, {
@@ -27,6 +28,10 @@ export function DefaultServiceStack({ stack }: StackContext) {
                         .build()
                         .getImage())
             }
+        },
+        customDomain: {
+            domainName: `${process.env.APP_NAME}.${process.env.DOMAIN}`,
+            isExternalDomain: false
         },
         environment: {
             APP_ENV: process.env.APP_ENV as string,
