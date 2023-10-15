@@ -4,12 +4,12 @@ import DockerImageBuilder from "./DockerImageBuilder";
 import { ContainerImage } from "aws-cdk-lib/aws-ecs";
 
 export function DefaultServiceStack({ stack }: StackContext) {
-    new Service(stack, `${process.env.APP_NAME}-${process.env.APP_ENV}-service`, {
+    new Service(stack, `${process.env.APP_NAME}-${process.env.APP_ENV}`, {
         cdk: {
             container: {
                 image: ContainerImage.fromRegistry(new DockerImageBuilder()
                         .withStack(stack)
-                        .withName(`${process.env.APP_NAME}-${process.env.APP_ENV}-service`)
+                        .withName(`${process.env.APP_NAME}-${process.env.APP_ENV}`)
                         .withPath("./app_src/app")
                         .withBuildArgs({
                             GIT_USER_EMAIL: process.env.GIT_USER_EMAIL as string,
