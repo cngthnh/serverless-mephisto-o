@@ -22,11 +22,11 @@ async function run(): Promise<void> {
 
         const repoName = `${process.env.APP_NAME}-${process.env.APP_ENV}`;
         info("Creating repository...");
-        buffer = subProcess.execSync(`cd .deploy && aws ecr create-repository --repository-name "${repoName}" --region ${process.env.AWS_REGION}`);
+        buffer = subProcess.execSync(`cd .deploy && aws ecr create-repository --repository-name "${repoName}" --region ${process.env.AWS_REGION} || true`);
         info(buffer.toString());
 
         info("Putting lifecycle policy...");
-        buffer = subProcess.execSync(`cd .deploy && aws ecr put-lifecycle-policy --repository-name "${repoName}" --lifecycle-policy-text file://$(pwd)/conf/lifecycle_policy.json`);
+        buffer = subProcess.execSync(`cd .deploy && aws ecr put-lifecycle-policy --repository-name "${repoName}" --lifecycle-policy-text file://$(pwd)/conf/lifecycle_policy.json || true`);
         info(buffer.toString());
 
         info("Deploying...")
