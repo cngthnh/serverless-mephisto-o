@@ -4,7 +4,7 @@ import { DefaultServiceStack } from "./stacks/DefaultServiceStack";
 export default {
   config(_input) {
     return {
-      name: `serverless-mephisto-${process.env.APP_NAME}-${process.env.APP_ENV}`,
+      name: `serverless-${process.env.APP_NAME}-${process.env.APP_ENV}`,
       region: process.env.AWS_REGION || "ap-southeast-2"
     };
   },
