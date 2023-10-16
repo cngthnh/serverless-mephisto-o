@@ -30,7 +30,8 @@ export function DefaultServiceStack({ stack }: StackContext) {
             }
         },
         customDomain: {
-            domainName: `${process.env.APP_NAME}.${process.env.DOMAIN}`,
+            domainName: `${process.env.APP_NAME}.mephisto.${process.env.DOMAIN}`,
+            hostedZone: process.env.DOMAIN as string,
             isExternalDomain: false
         },
         environment: {
