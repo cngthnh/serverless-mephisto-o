@@ -2,11 +2,14 @@ import { StackContext } from "sst/constructs/FunctionalStack";
 import { Service } from "sst/constructs";
 import DockerImageBuilder from "./DockerImageBuilder";
 import { ContainerImage } from "aws-cdk-lib/aws-ecs";
-import { CustomDomainProps } from "sst/constructs/util/apiGatewayV2Domain";
+import { Vpc } from "aws-cdk-lib/aws-ec2";
 
 export function DefaultServiceStack({ stack }: StackContext) {
     new Service(stack, `${process.env.APP_NAME}-${process.env.APP_ENV}`, {
         cdk: {
+            vpc: Vpc.fromLookup(stack, `${process.env.APP_NAME}-${process.env.APP_ENV}`, {
+                vpcId: process.env.VPC_ID
+            }),
             container: {
                 image: ContainerImage.fromDockerImageAsset(new DockerImageBuilder()
                         .withStack(stack)
