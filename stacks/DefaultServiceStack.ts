@@ -8,7 +8,7 @@ export function DefaultServiceStack({ stack }: StackContext) {
     const vpc = Vpc.fromLookup(stack, `${process.env.APP_NAME}-${process.env.APP_ENV}`, {
         vpcId: process.env.VPC_ID
     });
-    new Service(stack, `${process.env.APP_NAME}-${process.env.APP_ENV}`, {
+    new Service(stack, `${process.env.APP_NAME}-${process.env.APP_ENV}-vpc`, {
         cdk: {
             vpc,
             container: {
