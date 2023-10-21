@@ -34,7 +34,7 @@ export function DefaultServiceStack({ stack }: StackContext) {
             }
         },
         customDomain: {
-            domainName: `${process.env.APP_NAME}-wvpc.mephisto.${process.env.DOMAIN}`,
+            domainName: `${process.env.APP_NAME?.replace("deployment-", '')}-wvpc.mephisto.${process.env.DOMAIN}`,
             hostedZone: process.env.DOMAIN as string,
             isExternalDomain: false
         },
