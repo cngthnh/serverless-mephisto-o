@@ -14,7 +14,7 @@ async function run(): Promise<void> {
 
         info("Waiting for confirmation...");
         info(`nohup sh -c "aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc --follow --since 1d | egrep '${process.env.PREVIEW_URL_PREFIX}' > _run.log" &`);
-        buffer = subProcess.execSync(`nohup sh -c "aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc --follow --since 1d | egrep '${process.env.PREVIEW_URL_PREFIX}' > _run.log" &`);
+        subProcess.spawn(`nohup sh -c "aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc --follow --since 1d | egrep '${process.env.PREVIEW_URL_PREFIX}' > _run.log" &`);
         info(`while ! grep '${process.env.PREVIEW_URL_PREFIX}' _run.log; do echo "===FILE==="; cat _run.log; sleep 1; done`)
         const stream = subProcess.exec(`while ! grep '${process.env.PREVIEW_URL_PREFIX}' _run.log; do echo "===FILE==="; cat _run.log; sleep 1; done`);
         stream.stdout?.on('data', (data) => {
