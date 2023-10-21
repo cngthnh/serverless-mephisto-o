@@ -16,9 +16,9 @@ async function run(): Promise<void> {
         buffer = subProcess.execSync(`cd .deploy && npm install`);
         info(buffer.toString());
 
-        info("Removing old stacks");
-        buffer = subProcess.execSync(`cd .deploy && npm run remove`);
-        info(buffer.toString());
+        // info("Removing old stacks");
+        // buffer = subProcess.execSync(`cd .deploy && npm run remove`);
+        // info(buffer.toString());
 
         const repoName = `${process.env.APP_NAME}-${process.env.APP_ENV}`;
         info("Creating repository...");

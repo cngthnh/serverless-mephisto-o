@@ -1,8 +1,6 @@
 import { DockerImageAsset } from 'aws-cdk-lib/aws-ecr-assets';
 import * as ecrdeploy from 'cdk-ecr-deployment';
-import * as ecr from 'aws-cdk-lib/aws-ecr'
 import { Construct } from 'constructs';
-import { RemovalPolicy } from 'aws-cdk-lib';
 
 export default class DockerImageBuilder {
     private name: string;
@@ -64,7 +62,6 @@ export default class DockerImageBuilder {
             dest: new ecrdeploy.DockerImageName(`${process.env.AWS_ACCOUNT_ID}.dkr.ecr.${process.env.AWS_REGION}.amazonaws.com/${targetImageWithTags}`),
         });
 
-        // this.image = `${process.env.AWS_ACCOUNT_ID}.dkr.ecr.${process.env.AWS_REGION}.amazonaws.com/${targetImageWithTags}`;
         this.image = image;
 
         return this;
