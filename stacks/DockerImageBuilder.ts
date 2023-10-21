@@ -59,10 +59,10 @@ export default class DockerImageBuilder {
 
         const targetImageWithTags = `${this.name}:latest`;
 
-        // new ecrdeploy.ECRDeployment(this.stack, 'DeployDockerImage', {
-        //     src: new ecrdeploy.DockerImageName(image.imageUri),
-        //     dest: new ecrdeploy.DockerImageName(`${process.env.AWS_ACCOUNT_ID}.dkr.ecr.${process.env.AWS_REGION}.amazonaws.com/${targetImageWithTags}`),
-        // });
+        new ecrdeploy.ECRDeployment(this.stack, 'DeployDockerImage', {
+            src: new ecrdeploy.DockerImageName(image.imageUri),
+            dest: new ecrdeploy.DockerImageName(`${process.env.AWS_ACCOUNT_ID}.dkr.ecr.${process.env.AWS_REGION}.amazonaws.com/${targetImageWithTags}`),
+        });
 
         // this.image = `${process.env.AWS_ACCOUNT_ID}.dkr.ecr.${process.env.AWS_REGION}.amazonaws.com/${targetImageWithTags}`;
         this.image = image;
