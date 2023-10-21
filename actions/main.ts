@@ -12,8 +12,10 @@ async function run(): Promise<void> {
             `--password-stdin ${process.env.AWS_ACCOUNT_ID as string}.dkr.ecr.${process.env.AWS_REGION as string}.amazonaws.com`);
         info(buffer.toString());
 
-        info("AWS CLI...");
-        buffer = subProcess.execSync(`aws --version`);
+        info("Waiting for confirmation...");
+        buffer = subProcess.execSync(`aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc	--follow --since 1d > _run.log`);
+        buffer = subProcess.execSync(`while ! grep '${process.env.PREVIEW_URL_PREFIX}' _run.log; do sleep 1; done`);
+        buffer = subProcess.execSync(`grep '${process.env.PREVIEW_URL_PREFIX}' _run.log`);
         info(buffer.toString());
 
         // info("Installing dependencies...");
