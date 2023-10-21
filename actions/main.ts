@@ -12,31 +12,35 @@ async function run(): Promise<void> {
             `--password-stdin ${process.env.AWS_ACCOUNT_ID as string}.dkr.ecr.${process.env.AWS_REGION as string}.amazonaws.com`);
         info(buffer.toString());
 
-        info("Installing dependencies...");
-        buffer = subProcess.execSync(`cd .deploy && npm install`);
+        info("AWS CLI...");
+        buffer = subProcess.execSync(`aws --version`);
         info(buffer.toString());
 
-        // info("Removing old stacks");
-        // buffer = subProcess.execSync(`cd .deploy && echo "${process.env.APP_ENV}" | npm run remove`);
+        // info("Installing dependencies...");
+        // buffer = subProcess.execSync(`cd .deploy && npm install`);
         // info(buffer.toString());
 
-        const repoName = `${process.env.APP_NAME}-${process.env.APP_ENV}`;
-        info("Creating repository...");
-        buffer = subProcess.execSync(`cd .deploy && aws ecr create-repository --repository-name "${repoName}" --region ${process.env.AWS_REGION} || true`);
-        info(buffer.toString());
+        // // info("Removing old stacks");
+        // // buffer = subProcess.execSync(`cd .deploy && echo "${process.env.APP_ENV}" | npm run remove`);
+        // // info(buffer.toString());
 
-        info("Putting lifecycle policy...");
-        buffer = subProcess.execSync(`cd .deploy && aws ecr put-lifecycle-policy --repository-name "${repoName}" --lifecycle-policy-text file://$(pwd)/conf/lifecycle_policy.json || true`);
-        info(buffer.toString());
+        // const repoName = `${process.env.APP_NAME}-${process.env.APP_ENV}`;
+        // info("Creating repository...");
+        // buffer = subProcess.execSync(`cd .deploy && aws ecr create-repository --repository-name "${repoName}" --region ${process.env.AWS_REGION} || true`);
+        // info(buffer.toString());
 
-        info("Deploying...")
-        let stream = subProcess.exec(`cd .deploy && echo "${process.env.APP_ENV}" | npm run deploy`);
-        stream.stdout?.on('data', (data) => {
-            info(data);
-        });
-        stream.stderr?.on('data', (data) => {
-            info("stderr: " + data);
-        });
+        // info("Putting lifecycle policy...");
+        // buffer = subProcess.execSync(`cd .deploy && aws ecr put-lifecycle-policy --repository-name "${repoName}" --lifecycle-policy-text file://$(pwd)/conf/lifecycle_policy.json || true`);
+        // info(buffer.toString());
+
+        // info("Deploying...")
+        // let stream = subProcess.exec(`cd .deploy && echo "${process.env.APP_ENV}" | npm run deploy`);
+        // stream.stdout?.on('data', (data) => {
+        //     info(data);
+        // });
+        // stream.stderr?.on('data', (data) => {
+        //     info("stderr: " + data);
+        // });
     } catch (e: any) {
         setFailed(e);
     }
