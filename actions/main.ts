@@ -13,9 +13,9 @@ async function run(): Promise<void> {
         info(buffer.toString());
 
         info("Waiting for confirmation...");
-        info(`nohup sh -c "aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc --follow --since 1d | egrep '${process.env.PREVIEW_URL_PREFIX}' --line-buffered | tee _run.log" &`);
+        info(`nohup sh -c "unbuffer aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc --follow --since 1d | tee _run.log" &`);
         subProcess.execSync("touch _run.log")
-        subProcess.spawn(`aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc --follow --since 1d | egrep '${process.env.PREVIEW_URL_PREFIX}' --line-buffered | tee _run.log`);
+        subProcess.spawn(`unbuffer aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc --follow --since 1d | tee _run.log`);
         await new Promise(r => setTimeout(r, 2000));
         info(`while ! grep '${process.env.PREVIEW_URL_PREFIX}' _run.log; do echo "===FILE==="; cat _run.log; sleep 1; done`)
         const stream = subProcess.exec(`while ! grep '${process.env.PREVIEW_URL_PREFIX}' _run.log; do echo "===FILE==="; cat _run.log; sleep 1; done`);
