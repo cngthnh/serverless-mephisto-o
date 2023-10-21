@@ -31,9 +31,6 @@ export function DefaultServiceStack({ stack }: StackContext) {
                         })
                         .build()
                         .getImage())
-            },
-            fargateService: {
-                assignPublicIp: true
             }
         },
         customDomain: {
