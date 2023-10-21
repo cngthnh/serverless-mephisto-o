@@ -13,9 +13,14 @@ async function run(): Promise<void> {
         info(buffer.toString());
 
         info("Waiting for confirmation...");
-        subProcess.execSync(`aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc --follow --since 1d | egrep '${process.env.PREVIEW_URL_PREFIX}' > _run.log`);
-        subProcess.execSync("cat _run.log")
-        buffer = subProcess.execSync(`while ! grep '${process.env.PREVIEW_URL_PREFIX}' _run.log; do cat _run.log; sleep 1; done`);
+        buffer = subProcess.execSync(`aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc --follow --since 1d | egrep '${process.env.PREVIEW_URL_PREFIX}' > _run.log`);
+        const stream = subProcess.exec(`while ! grep '${process.env.PREVIEW_URL_PREFIX}' _run.log; do echo "===FILE==="; cat _run.log; sleep 1; done`);
+        stream.stdout?.on('data', (data) => {
+            info(data);
+        });
+        stream.stderr?.on('data', (data) => {
+            info("stderr: " + data);
+        });
         buffer = subProcess.execSync(`grep '${process.env.PREVIEW_URL_PREFIX}' _run.log`);
         info(buffer.toString());
 
