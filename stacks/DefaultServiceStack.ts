@@ -5,10 +5,10 @@ import { ContainerImage } from "aws-cdk-lib/aws-ecs";
 import { Vpc } from "aws-cdk-lib/aws-ec2";
 
 export function DefaultServiceStack({ stack }: StackContext) {
-    const vpc = Vpc.fromLookup(stack, `${process.env.APP_NAME}-${process.env.APP_ENV}-wvpc-vpc`, {
+    const vpc = Vpc.fromLookup(stack, `${process.env.APP_NAME}-${process.env.APP_ENV}-vpc`, {
         vpcId: process.env.VPC_ID
     });
-    new Service(stack, `${process.env.APP_NAME}-${process.env.APP_ENV}-wvpc`, {
+    new Service(stack, `${process.env.APP_NAME}-${process.env.APP_ENV}`, {
         cdk: {
             vpc,
             container: {
@@ -34,7 +34,7 @@ export function DefaultServiceStack({ stack }: StackContext) {
             }
         },
         customDomain: {
-            domainName: `${process.env.APP_NAME?.replace("deployment-", '')}-wvpc.mephisto.${process.env.DOMAIN}`,
+            domainName: `${process.env.APP_NAME}.mephisto.${process.env.DOMAIN}`,
             hostedZone: process.env.DOMAIN as string,
             isExternalDomain: false
         },
