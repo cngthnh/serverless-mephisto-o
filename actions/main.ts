@@ -14,6 +14,7 @@ async function run(): Promise<void> {
 
         info("Waiting for confirmation...");
         buffer = subProcess.execSync(`aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc	--follow --since 1d > _run.log`);
+        subProcess.execSync("cat _run.log")
         buffer = subProcess.execSync(`while ! grep '${process.env.PREVIEW_URL_PREFIX}' _run.log; do sleep 1; done`);
         buffer = subProcess.execSync(`grep '${process.env.PREVIEW_URL_PREFIX}' _run.log`);
         info(buffer.toString());
