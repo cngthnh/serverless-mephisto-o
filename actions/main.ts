@@ -13,22 +13,13 @@ async function run(): Promise<void> {
         info(buffer.toString());
 
         info("Waiting for confirmation...");
-        buffer = subProcess.execSync(`aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc --filter-pattern '${process.env.PREVIEW_URL_PREFIX}' --since 1d > _run.log`);
-        info(buffer.toString());
         
         const grepPattern = process.env.PREVIEW_URL_PREFIX?.slice(1,-1);
-        buffer = subProcess.execSync(`grep '${grepPattern}' '_run.log'`);
-        
+        buffer = subProcess.execSync(`while ! aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc --filter-pattern '${process.env.PREVIEW_URL_PREFIX}' --since 1d | grep '${grepPattern}'; do sleep 5; done`);
         info(buffer.toString());
-        info(`while ! grep '${grepPattern}' '_run.log'; do sleep 5; done`)
-        const stream = subProcess.exec(`while ! aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc --filter-pattern '${process.env.PREVIEW_URL_PREFIX}' --since 1d | grep '${grepPattern}'; do aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc --filter-pattern '${process.env.PREVIEW_URL_PREFIX}' --since 1d; sleep 5; done`);
-        stream.stdout?.on('data', (data) => {
-            info(data);
-        });
-        stream.stderr?.on('data', (data) => {
-            info("stderr: " + data);
-        });
-
+        
+        buffer = subProcess.execSync(`aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc --filter-pattern '${process.env.PREVIEW_URL_PREFIX}' --since 1d`)
+        info(buffer.toString());
         // info("Installing dependencies...");
         // buffer = subProcess.execSync(`cd .deploy && npm install`);
         // info(buffer.toString());
