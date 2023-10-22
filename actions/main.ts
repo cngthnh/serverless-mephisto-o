@@ -13,12 +13,10 @@ async function run(): Promise<void> {
         info(buffer.toString());
 
         info("Waiting for confirmation...");
-        info(`nohup sh -c "unbuffer aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc --follow --since 1d | tee _run.log" &`);
-        subProcess.execSync("touch _run.log")
-        subProcess.spawn(`unbuffer aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc --follow --since 1d | tee _run.log`);
-        await new Promise(r => setTimeout(r, 2000));
-        info(`while ! grep '${process.env.PREVIEW_URL_PREFIX}' _run.log; do echo "===FILE==="; cat _run.log; sleep 1; done`)
-        const stream = subProcess.exec(`while ! grep '${process.env.PREVIEW_URL_PREFIX}' _run.log; do echo "===FILE==="; cat _run.log; sleep 1; done`);
+        buffer = subProcess.execSync(`aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc --filter-pattern '${process.env.PREVIEW_URL_PREFIX}' --since 1d | tee _run.log`);
+        info(buffer.toString());
+        info(`while ! aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc --since 1d | grep '${process.env.PREVIEW_URL_PREFIX}'; do sleep 5; done`)
+        const stream = subProcess.exec(`while ! aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc --filter-pattern '${process.env.PREVIEW_URL_PREFIX}' --since 1d | grep '${process.env.PREVIEW_URL_PREFIX}'; do aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc --filter-pattern '${process.env.PREVIEW_URL_PREFIX}' --since 1d; sleep 5; done`);
         stream.stdout?.on('data', (data) => {
             info(data);
         });
