@@ -21,7 +21,7 @@ async function run(): Promise<void> {
         
         info(buffer.toString());
         info(`while ! grep '${grepPattern}' '_run.log'; do sleep 5; done`)
-        const stream = subProcess.exec(`while ! grep '${grepPattern}' '_run.log'; do aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc --filter-pattern '${process.env.PREVIEW_URL_PREFIX}' --since 1d > _run.log; sleep 5; done`);
+        const stream = subProcess.exec(`while ! aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc --filter-pattern '${process.env.PREVIEW_URL_PREFIX}' --since 1d | grep '${grepPattern}'; do aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc --filter-pattern '${process.env.PREVIEW_URL_PREFIX}' --since 1d; sleep 5; done`);
         stream.stdout?.on('data', (data) => {
             info(data);
         });
