@@ -15,6 +15,8 @@ async function run(): Promise<void> {
         info("Waiting for confirmation...");
         buffer = subProcess.execSync(`aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc --filter-pattern '${process.env.PREVIEW_URL_PREFIX}' --since 1d > _run.log`);
         info(buffer.toString());
+        buffer = subProcess.execSync('cat _run.log');
+        info(buffer.toString());
         const grepPattern = process.env.PREVIEW_URL_PREFIX?.slice(1,-1);
         info(`while ! grep '${grepPattern}' _run.log; do sleep 5; done`)
         const stream = subProcess.exec(`while ! grep '${grepPattern}' _run.log; do aws logs tail /sst/service/dev-serverless-mephisto-task-test-deployment-test-dev-wvpc-mephisto-task-test-deployment-test-dev-wvpc --filter-pattern '${process.env.PREVIEW_URL_PREFIX}' --since 1d > _run.log; sleep 5; done`);
