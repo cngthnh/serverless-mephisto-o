@@ -9,6 +9,7 @@ export function DefaultServiceStack({ stack }: StackContext) {
         vpcId: process.env.VPC_ID
     });
     new Service(stack, `${process.env.APP_NAME}-${process.env.APP_ENV}`, {
+        port: process.env.CONT_PORT ? parseInt(process.env.CONT_PORT) : 3000,
         cdk: {
             vpc,
             container: {
