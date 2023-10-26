@@ -39,7 +39,7 @@ export function DefaultServiceStack({ stack }: StackContext) {
                     interval: Duration.minutes(5),
                     retries: 20,
                     startPeriod: Duration.minutes(5),
-                    timeout: Duration.minutes(5),
+                    timeout: Duration.minutes(2),
                 },
             }
         },
