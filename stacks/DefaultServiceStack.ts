@@ -36,10 +36,10 @@ export function DefaultServiceStack({ stack }: StackContext) {
                     .getImage()),
                 healthCheck: {
                     command: ["CMD-SHELL", `curl -f http://localhost:${port}/ || exit 1`],
-                    interval: Duration.minutes(10),
+                    interval: Duration.minutes(5),
                     retries: 20,
-                    startPeriod: Duration.minutes(10),
-                    timeout: Duration.minutes(10),
+                    startPeriod: Duration.minutes(5),
+                    timeout: Duration.minutes(5),
                 },
             }
         },
